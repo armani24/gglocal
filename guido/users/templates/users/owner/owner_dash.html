@@ -1,0 +1,144 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'myapp/css/dashbord_navitaion.css' %}">
+{% endblock css %}
+{% block content %}
+	<!-- Our Dashbord -->
+	<section class="extra-dashboard-menu dn-992">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="ed_menu_list mt5">
+						<ul>
+							<li {% if owner_dash %}class="active"{% endif %}><a href="{% url 'users:owner_dash' %}"><span class="flaticon-web-page"></span> Dashboard</a></li>
+							<li><a href="{% url 'users:owner_profile' %}"><span class="flaticon-avatar"></span> Profile</a></li>
+							<li {% if my_listings %}class="active"{% endif %}><a href="{% url 'myapp:my_listings' %}"><span class="flaticon-list"></span> My Listings</a></li>
+							<li><a href="{% url 'users:owner_msgs' %}"><span class="flaticon-chat"></span> Message</a></li>
+							<li><a href="#"><span class="flaticon-note"></span> Reviews</a></li>
+							<li><a href="{% url 'users:logout' %}"><span class="flaticon-logout"></span> Logout</a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Our Dashbord -->
+	<section class="our-dashbord dashbord bgc-f4">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="dashboard_navigationbar dn db-992">
+						<div class="dropdown">
+							<button onclick="myFunction()" class="dropbtn"><i class="fa fa-bars pr10"></i> Dashboard Navigation</button>
+							<ul id="myDropdown" class="dropdown-content">
+								<li class="active"><a href="{% url 'users:owner_dash' %}"><span class="flaticon-web-page"></span> Dashboard</a></li>
+								<li><a href="{% url 'users:owner_profile' %}"><span class="flaticon-avatar"></span> My Profile</a></li>
+								<li><a href="{% url 'myapp:my_listings' %}"><span class="flaticon-list"></span> My Listings</a></li>
+								<li><a href="{% url 'users:owner_msgs' %}"><span class="flaticon-chat"></span> Message</a></li>
+								<li><a href="#"><span class="flaticon-note"></span> Reviews</a></li>
+								<li><a href="{% url 'myapp:create_listing' %}"><span class="flaticon-web-page"></span> Add New Listing</a></li>
+								<li><a href="{% url 'users:logout' %}"><span class="flaticon-logout"></span> Logout</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 mb10">
+					<div class="breadcrumb_content style2">
+						<h2 class="breadcrumb_title float-left">Hello, {{request.user.name}}!</h2>
+						<p class="float-right">Ready to jump back in!</p>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+					<div class="ff_one">
+						<div class="icon"><span class="flaticon-list"></span></div>
+						<div class="detais">
+							<div class="timer">{{listing_len}}</div>
+							<p>Active Listing</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+					<div class="ff_one style2">
+						<div class="icon"><span class="flaticon-note"></span></div>
+						<div class="detais">
+							<div class="timer">9382</div>
+							<p>Total Reviews</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+					<div class="ff_one style3">
+						<div class="icon"><span class="flaticon-chat"></span></div>
+						<div class="detais">
+							<div class="timer">74</div>
+							<p>Messages</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+					<div class="ff_one style4">
+						<div class="icon"><span class="flaticon-love"></span></div>
+						<div class="detais">
+							<div class="timer">32</div>
+							<p>Bookmarks</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-7 col-xl-8">
+					<div class="application_statics">
+						<h4>Total Views</h4>
+						<div class="c_container"></div>
+					</div>
+				</div>
+				<div class="col-lg-5 col-xl-4">
+					<div class="recent_job_activity">
+						<h4 class="title">Recent Activities</h4>
+						<div class="grid style1">
+							<ul>
+								<li class="list-inline-item"><div class="icon"><span class="fa fa-check"></span></div></li>
+								<li class="list-inline-item"><p>Your listing <span>Hotel Gulshan</span> has been approved!.</p></li>
+							</ul>
+						</div>
+						<div class="grid style2">
+							<ul>
+								<li class="list-inline-item"><div class="icon"><span class="fa fa-check"></span></div></li>
+								<li class="list-inline-item"><p>Your listing <span>Burger House</span> has been approved!.</p></li>
+							</ul>
+						</div>
+						<div class="grid style3">
+							<ul>
+								<li class="list-inline-item"><div class="icon"><span class="flaticon-note"></span></div></li>
+								<li class="list-inline-item"><p>Pitter Parker left a review 3.4 on John's <span>John's Coffee Shop</span></p></li>
+							</ul>
+						</div>
+						<div class="grid style4">
+							<ul>
+								<li class="list-inline-item"><div class="icon"><span class="flaticon-love"></span></div></li>
+								<li class="list-inline-item"><p>Someone bookmarked your <span>Burger House</span> listing!</p></li>
+							</ul>
+						</div>
+						<div class="grid style5">
+							<ul>
+								<li class="list-inline-item"><div class="icon"><span class="fa fa-check"></span></div></li>
+								<li class="list-inline-item"><p><span>Your listing Holiday Home has been approved!</span></p></li>
+							</ul>
+						</div>
+						<div class="grid style6 mb0">
+							<ul class="pb0 mb0 bb_none">
+								<li class="list-inline-item"><div class="icon"><span class="flaticon-love"></span></div></li>
+								<li class="list-inline-item"><p><span>Someone bookmarked your Moonlight Hotel listing!</span></p></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'myapp/js/dashboard-script.js' %}"></script>
+{% endblock js %}

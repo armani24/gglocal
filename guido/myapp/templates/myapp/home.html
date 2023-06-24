@@ -1,0 +1,354 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+	<!-- Home Design -->
+	<style>
+		.searchBoxElement {
+		height: 230px;
+		overflow-y: scroll;
+	}
+	</style>
+	<section class="home-one home1-overlay bg-img1" style="background-image: url({{homeslide}});">
+		<div class="container">
+			<div class="row posr">
+				<div class="col-lg-12">
+					<div class="home_content home1">
+						<div class="home-text text-center">
+							<h2 class="fz50">Explore Amazing Destinations</h2>
+							<p class="fz18 color-white">Find great places to stay, eat, shop, or visit from local experts.</p>
+						</div>
+						<div class="row justify-content-center">
+							<div class="col-lg-10 col-xl-8">
+								<div class="home_adv_srch_opt text-center">
+									<div class="wrapper">
+										<div class="home_adv_srch_form">
+											<form class="bgc-white bgct-767 pl30 pt10 pl0-767" method="GET" action="{% url 'myapp:home' %}">
+												{% csrf_token %}
+												<div class="form-row align-items-center">
+												    <div class="col-auto home_form_input mb20-xsd">
+												      	<label class="sr-only">Username</label>
+												      	<div class="input-group style1 mb-2 mb0-767">
+												        	<div class="input-group-prepend">
+												        		<div class="input-group-text pl0 pb0-767">What</div>
+												        	</div>
+															<div class="select-wrap style1-dropdown">
+														    	<select name="categories" class="form-control js-searchBox">
+																	
+																	<option value="">Ex: shopping, restaurant...</option>
+																	{% for cat in categories %}
+																	<option value="{{cat.name}}">{{cat.name}}</option>
+																	{% endfor %}
+														    	</select>
+														    </div>
+												      	</div>
+												    </div>
+												    <div class="col-auto home_form_input">
+												      	<label class="sr-only">Username</label>
+												      	<div class="input-group style2 mb-2 mb0-767">
+												        	<div class="input-group-prepend">
+												        		<div class="input-group-text pb0-767">Where</div>
+												        	</div>
+															<div class="select-wrap style2-dropdown">
+														    	<select name="cities" class="form-control js-searchBox2">
+																	<option value="">Your City</option>
+																	{% for cit in city %}
+																	<option value="{{cit.name}}">{{cit.name}}</option>
+																	{% endfor %}
+														    	</select>
+														    </div>
+												      	</div>
+												    </div>
+												    <div class="col-auto home_form_input2">
+												    	<button type="submit" class="btn search-btn mb-2"><span class="flaticon-loupe"></span></button>
+												    </div>
+												</div>
+											</form>
+										</div>
+									</div>
+									<div class="home_mobile_slider home_custom_list dn db-767">
+										<div class="item">{% for cate in categories %}
+											<div class="icon_home1">
+												<div class="icon"><span class="{{cate.icon_class}}"></span></div>
+												<p>{{cate.name}}</p>
+											</div>{% endfor %}
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Feature Properties -->
+	<section id="feature-property" class="feature-property pt0 border-bottom">
+		<div class="container p0">
+			<div class="feature-content dn-767">
+				<div class="row justify-content-center mt-80 mb45">
+					<div class="col-lg-4 text-center">
+						<p><em class="text-white">What are you interested in?</em></p>
+					</div>
+				</div>
+				<div class="row">{% for cate in categories %}
+					<div class="col-sm-6 col-md-4 col-xl-2">
+						<div class="icon-box text-center">
+							<div class="icon"><span class="{{cate.icon_class}}"></span></div><a href="{% url 'myapp:listing_list_filter' cate.name None %}">
+							<div class="content-details">
+								<div class="title">{{cate.name}}</div>
+							</div></a>
+						</div>
+					</div>{% endfor %}
+				</div>
+			</div>
+		</div>
+		<div class="container pt100-767">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="main-title text-center">
+						<h2>The Most Popular Things to Do in the City</h2>
+						<p>Discover some of the most popular listings in Toronto based on user reviews and ratings.</p>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="popular_listing_slider1">{% for home_lis in homelisting %}
+						<div class="item">
+							<div class="feat_property">
+								<div class="thumb">
+									<img class="img-whp" src="{{home_lis.listing.image1.url}}" alt="">
+									<div class="thmb_cntnt">
+										<ul class="tag mb0">
+											<li class="list-inline-item"><a href="#"> {{home_lis.listing.price}} </a></li>
+											<li class="list-inline-item"><a href="">Open</a></li>
+										</ul>
+										<ul class="tag2 mb0">
+											<li class="list-inline-item"><a href="#">Featured</a></li>
+										</ul>
+										<ul class="listing_reviews">
+											<li class="list-inline-item"><a class="text-white" href="#"><span class="fa fa-star"></span></a></li>
+											<li class="list-inline-item"><a class="text-white" href="#"><span class="fa fa-star"></span></a></li>
+											<li class="list-inline-item"><a class="text-white" href="#"><span class="fa fa-star"></span></a></li>
+											<li class="list-inline-item"><a class="text-white" href="#"><span class="fa fa-star"></span></a></li>
+											<li class="list-inline-item"><a class="text-white" href="#"><span class="fa fa-star"></span></a></li>
+											<li class="list-inline-item"><a class="text-white total_review" href="#">(5 Review)</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="details">
+									<div class="tc_content">
+										<div class="badge_icon"><a href="#"><img src="{% static 'myapp/images/icons/agent1.svg' %}" alt="agent1.svg"></a></div>
+										<h4>{{home_lis.listing.name}}</h4>
+										<p>{{home_lis.listing.description|truncatechars:50}}</p>
+										<ul class="prop_details mb0">
+											<li class="list-inline-item"><a href="#"><span class="flaticon-phone pr5"></span> {{home_lis.listing.phone}}</a></li>
+											<li class="list-inline-item"><a href="#"><span class="flaticon-pin pr5"></span> {{home_lis.listing.city.name}}</a></li>
+										</ul>
+									</div>
+									<div class="fp_footer">
+										<ul class="fp_meta float-left mb0">
+											<li class="list-inline-item"><a href="#"><img src="{{home_lis.listing.category.svg_img}}" alt="icon3.svg"></a></li>
+											<li class="list-inline-item"><a href="#">{{home_lis.listing.category.name}}</a></li>
+										</ul>
+										<ul class="fp_meta float-right mb0">
+											<li class="list-inline-item"><a href="#"><span class="flaticon-zoom"></span></a></li>
+											<li class="list-inline-item"><a class="icon" href="#"><span class="flaticon-love"></span></a></li>
+										</ul>
+									</div>
+								</div>
+							</div>
+						</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Property Cities -->
+	<section id="property-city" class="property-city pb70">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="main-title text-center">
+						<h2>Trending Cities</h2>
+						<p>Cities You Must Explore This Summer</p>
+					</div>
+				</div>
+			</div>
+			
+			<div class="row">
+				{% for city in bycity %}
+				<div class="col-md-6 col-lg-4 col-xl-4"><a href="{% url 'myapp:listing_list' %}">
+					<div class="properti_city">
+						<div class="thumb"><img class="img-fluid w100" src="{{city.city__city_img}}" alt="pc1.jpg"></div>
+						<div class="overlay">
+							<div class="details">
+								<h4>{{city.city__name}}</h4>
+								<p>{{city.list_city}} Listing</p>
+							</div>
+						</div>
+					</div></a>
+				</div>{% endfor %}
+			</div>
+		</div>
+	</section>
+
+	<!-- How It Works -->
+	<section id="why-chose" class="whychose_us bgc-f7 pb70">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="main-title text-center">
+						<h2>How it Works</h2>
+						<p>Bringing business, Local Guides and community members together.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="why_chose_us">
+						<div class="icon">
+							<span class="flaticon-find-location"></span>
+						</div>
+						<div class="details">
+							<h4>Find Businesses</h4>
+							<p>Discover & connect with great local businesses in your local neighborhood.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="why_chose_us">
+						<div class="icon">
+							<span class="flaticon-comment"></span>
+						</div>
+						<div class="details">
+							<h4>Review Listings</h4>
+							<p>Discover & connect with great local businesses in your local neighborhood and find a lot of offers.</p>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="why_chose_us">
+						<div class="icon">
+							<span class="flaticon-date"></span>
+						</div>
+						<div class="details">
+							<h4>Find Local Guides</h4>
+							<p>Discover & connect with great local Guides in the city you wish to visit.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Our Divider -->
+	<section class="divider home-style1 parallax" data-stellar-background-ratio="0.2">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-lg-8">
+					<div class="business_exposer text-center">
+						<h2 class="title text-white mb20">Get Business Exposure</h2>
+						<p class="text-white mb35">Your business deserves efficiently unleash cross-media information without cross-media value. Quickly maximize timely deliverables for real-time schemas.</p>
+						<a class="btn exposer_btn" href="#">How It Works</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Our Blog -->
+	<section class="our-blog pb70">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6 offset-lg-3">
+					<div class="main-title text-center">
+						<h2>News & Tips</h2>
+						<p>Checkout Latest News And Articles From Our Blog.</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="for_blog feat_property">
+						<div class="thumb">
+							<img class="img-whp" src="{% static 'myapp/images/blog/1.jpg' %}" alt="1.jpg">
+							<div class="tag bgc-thm"><a class="text-white" href="#">Health & Care</a></div>
+						</div>
+						<div class="details">
+							<div class="tc_content">
+								<div class="bp_meta">
+									<ul>
+										<li class="list-inline-item"><a href="#"><span class="flaticon-avatar mr10"></span> Jack Wilson</a></li>
+										<li class="list-inline-item"><a href="#"><span class="flaticon-date mr10"></span> 06 April, 2020</a></li>
+									</ul>
+								</div>
+								<h4>The Top 25 Bike Stores in Toronto by Neighbourhood</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="for_blog feat_property">
+						<div class="thumb">
+							<img class="img-whp" src="{% static 'myapp/images/blog/2.jpg' %}" alt="2.jpg">
+							<div class="tag bgc-thm"><a class="text-white" href="#">Culture</a></div>
+						</div>
+						<div class="details">
+							<div class="tc_content">
+								<div class="bp_meta">
+									<ul>
+										<li class="list-inline-item"><a href="#"><span class="flaticon-avatar mr10"></span> Jack Wilson</a></li>
+										<li class="list-inline-item"><a href="#"><span class="flaticon-date mr10"></span> 06 April, 2020</a></li>
+									</ul>
+								</div>
+								<h4>How to Wear a Headscarf Like a Gucci Muse</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-4 col-xl-4">
+					<div class="for_blog feat_property">
+						<div class="thumb">
+							<img class="img-whp" src="{% static 'myapp/images/blog/3.jpg' %}" alt="3.jpg">
+							<div class="tag bgc-thm"><a class="text-white" href="#">Travelling</a></div>
+						</div>
+						<div class="details">
+							<div class="tc_content">
+								<div class="bp_meta">
+									<ul>
+										<li class="list-inline-item"><a href="#"><span class="flaticon-avatar mr10"></span> Jack Wilson</a></li>
+										<li class="list-inline-item"><a href="#"><span class="flaticon-date mr10"></span> 06 April, 2020</a></li>
+									</ul>
+								</div>
+								<h4>Quisque sed eros mollis, pretium odio feugiat dictum</h4>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Start Partners -->
+	<section class="start-partners home1 bgc-thm pt60 pb60">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8">
+					<div class="start_partner tac-smd">
+						<h2>Submit Your Property Today!</h2>
+						<p>Explore some of the best tips from around the city from our partners and friends.</p>
+					</div>
+				</div>
+				<div class="col-lg-4 pr10">
+					<div class="parner_reg_btn text-right tac-smd">
+						<a class="btn" href="#">Submit Now</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

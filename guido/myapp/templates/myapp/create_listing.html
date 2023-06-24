@@ -1,0 +1,153 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+     	<section class="our-dashbord dashbord bgc-f4 ovh">
+		<div class="container mt80">
+			<div class="row">
+				<div class="col-lg-12 mb10">
+					<div class="breadcrumb_content style2 mb25">
+						<h2 class="breadcrumb_title">Add New Listing</h2>
+					</div>
+				</div>
+			</div>
+			<form method="post" enctype="multipart/form-data">
+			    {{form.errors}}
+			    {% csrf_token %}
+			<div class="row justify-content-center">
+				<div class="col-lg-7">
+					<div class="my_dashboard_review">
+						<div class="row">
+							<div class="col-lg-12">
+								<h4 class="mb30">General</h4>
+								<div class="my_profile_setting_input form-group">
+							    	<label for="name">Place Name*</label>
+							    	<input type="text" class="form-control" name="name" placeholder="What the name of place" value="{% if form.name.value %}{{form.name.value}}{% endif %}">
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="my_profile_setting_input ui_kit_select_search form-group">
+							    	<label>Price*</label>
+									<input type="text" class="form-control" name="price" placeholder="Pricing" value="{% if form.price.value %}{{form.price.value}}{% endif %}">
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="my_profile_setting_textarea">
+								    <label for="propertyDescription">Description*</label>
+								    <textarea class="form-control" name="description" rows="7">{% if form.description.value %}{{form.description.value}}{% endif %}</textarea>
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="my_profile_setting_input ui_kit_select_search form-group">
+							    	<label>Category*</label>
+									{{ form.category }}
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="my_profile_setting_input ui_kit_select_search form-group">
+							    	<label>City*</label>
+									{{ form.city }}
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="my_dashboard_review mt30">
+						<div class="row">
+							<div class="col-lg-12">
+								<h4 class="mb30">Hightlights</h4>
+								<div class="my_profile_setting_input ui_kit_select_search form-group list_hightlights df">
+								    {{form.highlights}}
+					                
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="my_dashboard_review mt30">
+						<div class="row">
+							<div class="col-lg-12">
+								<h4 class="mb30">Location</h4>
+								
+							</div>
+							<div class="col-lg-12">
+								<div class="my_profile_setting_input form-group">
+							    	<label for="propertyAddress">Place Location on Google Maps</label>
+									<div class="h400 bdrs8 mt20" id="map-canvas"></div>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="my_dashboard_review mt30">
+						<div class="row">
+							<div class="col-lg-12">
+								<h4 class="mb30">Contact Information</h4>
+								<div class="my_profile_setting_input ui_kit_select_search form-group">
+							    	<label>Email</label>
+							    	<input type="email" class="form-control" name="email" placeholder="Email Address" value="{% if form.email.value %}{{form.email.value}}{% endif %}">
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="my_profile_setting_input form-group">
+							    	<label for="phoneNumber">Phone number (optional)</label>
+							    	<input type="text" class="form-control" name="phone" placeholder="Phone Number" value="{% if form.phone.value %}{{form.phone.value}}{% endif %}">
+								</div>
+							</div>
+							<div class="col-lg-12">
+								<div class="my_profile_setting_input form-group">
+							    	<label for="website">Website (optional)</label>
+							    	<input type="text" class="form-control" id="website" placeholder="Website Url">
+								</div>
+							</div>
+						</div>
+					</div>
+					
+					<div class="my_dashboard_review mt30">
+						<div class="row">
+							<div class="col-lg-12">
+								<h4 class="mb30">Media</h4>
+							</div>
+							<div class="col-lg-12">
+								<h5>Featured image</h5>
+							  	<div class="upload_file_input_add_remove">
+							    	<span class="btn_upload"><input type="file" name="image1" title="" class="input-img" accept="image/*" required/><span class="flaticon-upload"></span></span>
+										  							
+							  	</div>
+								<small>Maximum file size: 1000kb.</small>
+							</div>
+							<div class="col-lg-12 mt50">
+								<h5 class="mb20">Gallery Images (optional)</h5>
+								<ul class="mb0">
+									<li class="list-inline-item vat mb30-767">
+									  	<div class="upload_file_input_add_remove">
+									    	<span class="btn_upload"><input type="file" name="image2" title="" class="input-img" accept="image/*" required/><span class="flaticon-upload"></span></span>
+									    	
+									  	</div>
+										<small>Maximum file size: 1000kb.</small>
+									</li>
+									<li class="list-inline-item vat mb30-767">
+										<div class="upload_file_input_add_remove">
+										  <span class="btn_upload"><input type="file" name="image3" title="" class="input-img" accept="image/*" required/><span class="flaticon-upload"></span></span>
+										  
+										</div>
+									  <small>Maximum file size: 1000kb.</small>
+								  </li>
+								  <li class="list-inline-item vat mb30-767">
+									<div class="upload_file_input_add_remove">
+									  <span class="btn_upload"><input type="file" name="image4" title="" class="input-img" accept="image/*" required/><span class="flaticon-upload"></span></span>
+									  
+									</div>
+								  <small>Maximum file size: 1000kb.</small>
+							  	</li>
+								</ul>
+							</div>
+							<div class="col-lg-12">
+							</div>
+						</div>
+					</div>
+					<button class="btn btn-thm listing_save_btn mt30" type="submit">Submit</button>
+				</div>
+			</div>
+			</form>
+		</div>
+	</section>
+
+{% endblock %}

@@ -1,0 +1,182 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'myapp/css/dashbord_navitaion.css' %}">
+{% endblock css %}
+{% block content %}
+    <section class="extra-dashboard-menu dn-992">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="ed_menu_list mt5">
+                        <ul>
+                            <li {% if owner_dash %}class="active"{% endif %}><a href="{% url 'users:guide_dash' %}"><span class="flaticon-web-page"></span> Dashboard</a></li>
+							<li><a href="{% url 'users:guide_profile' %}"><span class="flaticon-avatar"></span> Profile</a></li>
+							<li><a href="{% url 'users:guide_msgs' %}"><span class="flaticon-chat"></span> Message</a></li>
+							<li><a href="{% url 'users:logout' %}"><span class="flaticon-logout"></span> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+	<!-- Our Dashbord -->
+	<section class="our-dashbord dashbord bgc-f4">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="dashboard_navigationbar dn db-992">
+						<div class="dropdown">
+							<button onclick="myFunction()" class="dropbtn"><i class="fa fa-bars pr10"></i> Dashboard Navigation</button>
+							<ul id="myDropdown" class="dropdown-content">
+								<li class="active"><a href="{% url 'users:guide_dash' %}"><span class="flaticon-web-page"></span> Dashboard</a></li>
+								<li><a href="{% url 'users:guide_profile' %}"><span class="flaticon-avatar"></span> My Profile</a></li>
+								<li><a href="{% url 'users:guide_msgs' %}"><span class="flaticon-chat"></span> Message</a></li>
+								<li><a href="{% url 'users:logout' %}"><span class="flaticon-logout"></span> Logout</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-12 mb10">
+					<div class="breadcrumb_content style2">
+						<h2 class="breadcrumb_title float-left">Profile</h2>
+						<p class="float-right">Ready to jump back in!</p>
+					</div>
+				</div>
+				<div class="col-lg-12">
+					<div class="row">
+						<div class="col-xl-8">
+							<div class="my_dashboard_profile mb30-lg">
+                                <form method="post" enctype="multipart/form-data">
+                                    {% csrf_token %}
+                                    <h4 class="mb30">Profile Details</h4>
+                                    <div class="row">
+                                        
+                                        <div class="col-lg-12">
+                                            <div class="text-center">
+                                                <img class="mr-3" src="{{request.user.profile.image.url}}" alt="" style="border-radius: 100px; max-width: 45%;">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="my_profile_setting_input form-group mt100-500">
+                                                <label for="formGroupExampleInput1">Profile Image</label>
+                                                <input type="file" class="form-control" name="image" accept="image/*">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="my_profile_setting_input form-group mt100-500">
+                                                <label for="formGroupExampleInput1">Your Name</label>
+                                                <input type="text" class="form-control" name="name" value="{% if form_name.name.value %} {% else %} {{request.user.name}} {% endif %}">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleInput8">Phone</label>
+                                                <input type="text" class="form-control" name="phone" value="{% if form_name.phone.value %} {% else %} {{request.user.phone}} {% endif %} ">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-xl-6">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleInput5">Facebook</label>
+                                                <input type="text" class="form-control" id="formGroupExampleInput5">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-xl-6">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleInput6">Twitter</label>
+                                                <input type="text" class="form-control" id="formGroupExampleInput6">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-xl-6">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleInput7">Google+</label>
+                                                <input type="text" class="form-control" id="formGroupExampleInput7">
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-6 col-xl-6">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleInput9">Instagram</label>
+                                                <input type="text" class="form-control" id="formGroupExampleInput9">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <div class="my_profile_setting_input">
+                                                <button type="submit" class="btn update_btn">Save Changes</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+							</div>
+						</div>
+						<div class="col-xl-4">
+                            <form method="POST">
+                                {% csrf_token %}
+                                <div class="my_dashboard_profile">
+                                    <h4 class="mb20">Change password</h4>
+                                    <div class="row">
+                                        {{form_pass.errors}}
+                                        <div class="col-md-12">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleOldPass">Current Password</label>
+                                                <input type="password" class="form-control" name="old_password" id="formGroupExampleOldPass">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleNewPass">New Password</label>
+                                                <input type="password" class="form-control" name="new_password1" id="formGroupExampleNewPass">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleConfPass">Confirm New Password</label>
+                                                <input type="password" class="form-control" name="new_password2" id="formGroupExampleConfPass">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <div class="my_profile_setting_input">
+                                                <button class="btn update_btn style2">Change Password</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <form method="POST">
+                                {% csrf_token %}
+                                
+                                <div class="my_dashboard_profile">
+                                    <h4 class="mb20">Change email</h4>
+                                    <div class="row">
+                                        {{form_email.errors}}
+                                        <div class="col-md-12">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleNewPass">New Email</label>
+                                                <input type="email" class="form-control" name="email1" id="formGroupExampleNewPass">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="my_profile_setting_input form-group">
+                                                <label for="formGroupExampleConfPass">Confirm Email</label>
+                                                <input type="email" class="form-control" name="email2" id="formGroupExampleConfPass">
+                                            </div>
+                                        </div>
+                                        <div class="col-xl-12">
+                                            <div class="my_profile_setting_input">
+                                                <button class="btn update_btn style2">Change Email</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+						</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    {% endblock %}
+
+    {% block js %}
+    <script src="{% static 'myapp/js/dashboard-script.js' %}"></script>
+    {% endblock js %}

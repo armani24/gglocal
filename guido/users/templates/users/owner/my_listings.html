@@ -1,0 +1,157 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static 'myapp/css/dashbord_navitaion.css' %}">
+{% endblock css %}
+{% block content %}
+
+
+<section class="extra-dashboard-menu dn-992">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="ed_menu_list mt5">
+                    <ul>
+                        <li {% if owner_dash %}class="active"{% endif %}><a href="{% url 'users:owner_dash' %}"><span class="flaticon-web-page"></span> Dashboard</a></li>
+							<li><a href="{% url 'users:owner_profile' %}"><span class="flaticon-avatar"></span> Profile</a></li>
+							<li {% if my_listings %}class="active"{% endif %}><a href="{% url 'myapp:my_listings' %}"><span class="flaticon-list"></span> My Listings</a></li>
+							<li><a href="#"><span class="flaticon-love"></span> Bookmarks</a></li>
+							<li><a href="{% url 'users:owner_msgs' %}"><span class="flaticon-chat"></span> Message</a></li>
+							<li><a href="#"><span class="flaticon-note"></span> Reviews</a></li>
+							<li><a href="{% url 'users:logout' %}"><span class="flaticon-logout"></span> Logout</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Our Dashbord -->
+<section class="our-dashbord dashbord bgc-f4">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="dashboard_navigationbar dn db-992">
+                    <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn"><i class="fa fa-bars pr10"></i> Dashboard Navigation</button>
+                        <ul id="myDropdown" class="dropdown-content">
+                            <li {% if owner_dash %}class="active"{% endif %}><a href="{% url 'users:owner_dash' %}"><span class="flaticon-web-page"></span> Dashboard</a></li>
+								<li><a href="{% url 'users:owner_profile' %}"><span class="flaticon-avatar"></span> My Profile</a></li>
+								<li {% if my_listings %}class="active"{% endif %}><a href="{% url 'myapp:my_listings' %}"><span class="flaticon-list"></span> My Listings</a></li>
+								<li><a href="{% url 'users:owner_msgs' %}"><span class="flaticon-chat"></span> Message</a></li>
+								<li><a href="#"><span class="flaticon-note"></span> Reviews</a></li>
+								<li><a href="{% url 'myapp:create_listing' %}"><span class="flaticon-web-page"></span> Add New Listing</a></li>
+								<li><a href="{% url 'users:logout' %}"><span class="flaticon-logout"></span> Logout</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12 mb15">
+                <div class="breadcrumb_content style2">
+                    <h2 class="breadcrumb_title float-left">My Listings</h2>
+                    <p class="float-right">Ready to jump back in?</p>
+                </div>
+            </div>
+        </div>
+        <div class="my_listings">
+            <div class="row">{% if my_listing %}
+                <div class="col-lg-12">
+                    <div class="candidate_revew_select style2 mb30-991 float-left fn-smd">
+                        <ul class="mb0">
+                            <li class="list-inline-item">
+                                <div class="candidate_revew_search_box course fn-520">
+                                    <form class="form-inline my-2">
+                                        <input class="form-control mr-sm-2" type="search" placeholder="Search Courses" aria-label="Search">
+                                        <button class="btn my-2 my-sm-0" type="submit"><span class="flaticon-loupe"></span></button>
+                                    </form>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="candidate_revew_select style2 text-right mb30-991 tal-smd">
+                        <ul class="mb0 mt10">
+                            <li class="list-inline-item mb30-767">
+                                <select class="selectpicker show-tick">
+                                    <option>Categories : All</option>
+                                    <option>Gym</option>
+                                    <option>Hotel</option>
+                                    <option>Spa</option>
+                                    <option>Travel</option>
+                                </select>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-lg-12 mt25">
+                    <div class="listing_table">
+                        <form action="#">
+                            <table class="table table-responsive">
+                                  <thead>
+                                    <tr class="carttable_row">
+                                        <th class="cartm_title">Name</th>
+                                        <th class="dn-lg"></th>
+                                        <th class="cartm_title">City</th>
+                                        <th class="cartm_title">Category</th>
+                                        <th class="cartm_title">Status</th>
+                                        <th class="cartm_title">Action</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody class="table_body">
+                                    {% for lis in my_listing %}
+                                    <tr>
+                                        <th scope="row">
+                                            <ul class="cart_list">
+                                                <li class="list-inline-item pr10"><a href="{% url 'myapp:listing_details' lis.id %}"><img src="{% if lis.image1 %}{{lis.image1.url}}{% endif %}" alt=""></a></li>
+                                                <li class="list-inline-item"><a class="cart_title" href="{% url 'myapp:listing_details' lis.id %}">{{lis.name}}</a></li>
+                                            </ul>
+                                        </th>
+                                        <td class="dn-lg"></td>
+                                        <td>{{lis.city.name}}</td>
+                                        <td>{{lis.category.name}}</td>
+                                        <td class="color-success">Approved</td>
+                                        <td class="editing_list">
+                                            <ul>
+                                                <li class="list-inline-item">
+                                                    <a href="{% url 'myapp:edit_listing' lis.id %}" data-toggle="tooltip" data-placement="top" title="Edit"><span class="flaticon-edit"></span></a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="{% url 'myapp:listing_details' lis.id %}" data-toggle="tooltip" data-placement="top" title="View"><span class="flaticon-view"></span></a>
+                                                </li>
+                                                <li class="list-inline-item">
+                                                    <a href="{% url 'myapp:delete_listing' lis.id %}" data-toggle="tooltip" data-placement="top" title="Delete"><span class="flaticon-delete"></span></a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>{% endfor %}
+                                  </tbody>
+                            </table>
+                        </form>
+                    </div>
+                </div>{% if my_listing.has_previous or my_listing.has_next %}
+                <div class="col-lg-12">
+                    <div class="mbp_pagination mt10">
+                        <ul class="page_navigation">
+                            <li class="page-item">
+                                {% if my_listing.has_previous %}<a class="page-link" href="?page={{ my_listing.previous_page_number }}" tabindex="-1" aria-disabled="true">Prev.</a>{% endif %}
+                                </li>
+                                {% if my_listing.has_previous %}<li class="page-item"><a class="page-link" href="?page={{ my_listing.previous_page_number }}">{{ my_listing.previous_page_number }}</a></li>{% endif %}
+                                <li class="page-item active"><a class="page-link" href="#">{{ my_listing.number }}</a></li>
+                                {% if my_listing.has_next %}<li class="page-item"><a class="page-link" href="?page={{ my_listing.next_page_number }}">{{ my_listing.next_page_number }}</a></li>{% endif %}
+                                <li class="page-item">
+                                {% if my_listing.has_next %}<a class="page-link" href="?page={{ my_listing.next_page_number }}">Next</a>{% endif %}
+                                </li>
+                        </ul>
+                    </div>
+                </div>{% endif %}
+                {% else %}
+                <h4>No Listing yet</h4>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block js %}
+<script src="{% static 'myapp/js/dashboard-script.js' %}"></script>
+{% endblock js %}

@@ -1,0 +1,221 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+	<!-- Listing Single v5 Home Area -->
+	<div class="home10-mainslider">
+		<div class="container-fluid p0">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="main-banner-wrapper home10">
+					    <div class="banner-style-one owl-theme owl-carousel">
+					        <div class="slide slide-one" style="background-image: url({% if guides.image1 %}{{guides.image1.url}}{% endif %});height: 650px;"></div>
+                            <div class="slide slide-one" style="background-image: url({% if guides.image1 %}{{guides.image1.url}}{% endif %});height: 650px;"></div>
+					    </div>
+					    <div class="carousel-btn-block banner-carousel-btn">
+					        <span class="carousel-btn left-btn"><i class="flaticon-arrow-pointing-to-left left"></i></span>
+					        <span class="carousel-btn right-btn"><i class="flaticon-arrow-pointing-to-right right"></i></span>
+					    </div><!-- /.carousel-btn-block banner-carousel-btn -->
+					</div><!-- /.main-banner-wrapper -->
+				</div>
+			</div>
+		</div>
+		<div class="container">
+			<div class="row listing_single_row style2">
+				<div class="col-lg-8 col-xl-7">
+					<div class="single_property_title listing_single_v1">
+						<div class="media">
+							<div class="media-body mt20">
+						    	<h2 class="mt-0">{{guides.name}}</h2>
+						    	<ul class="mb40 agency_profile_contact listing_single_v1">
+						    		<li class="list-inline-item"><a href="#"><span class="flaticon-phone"></span> {% if guides.phone %}{{guides.phone}}{% else %} /{% endif %} </a></li>
+						    		<li class="list-inline-item"><a href="#"><span class="flaticon-pin"></span> {{guides.city.name}}</a></li>
+						    	</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-xl-5">
+					<div class="single_property_social_share listing_single_v1 mt80 mt0-lg">
+						<div class="spss style2 listing_single_v1 mt30 float-left fn-lg">
+							<ul class="mb0">
+								<li class="list-inline-item icon"><a href="#"><span class="flaticon-upload"></span></a></li>
+								<li class="list-inline-item"><a class="text-white" href="#">Price</a></li>
+								
+								<li class="list-inline-item"><a class="text-white" href="#">{{guides.price}}/h</a></li>
+							</ul>{% if not request.user.is_owner or request.user.is_guid %}
+							<div class="price listing_single_v1 mt25 float-right fn-lg">
+							<a href="#" class="btn btn-thm spr_btn"> Puchase</a>
+						</div>{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Listing Single V1 -->
+	<section class="our-agent-single pb30-991">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-lg-8">
+					<div class="row">
+						<div class="col-lg-12 pl0 pr0 pl15-767 pr15-767">
+							<div class="listing_single_description mb60">
+								<h4 class="mb30">Overview</h4>
+						    	<p class="first-para mb25">{{guides.description}}</p>
+						    	<p class="gpara second_para white_goverlay mt10 mb20">{{guides.description}}</p>
+								<div class="collapse" id="collapseExample">
+								  	<div class="card card-body">
+								    	<p class="mt10 mb10">{{guides.description}}.</p>
+								    	<p class="mt10 mb10">{{guides.description}}
+								    	{{guides.highlights}}.</p>
+								  	</div>
+								</div>
+								<p class="overlay_close">
+									<a class="text-thm fz15 tdu" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Show More</a>
+								</p>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="additional_details mb30">
+								<div class="row">
+									<div class="col-lg-12 pl0 pr0 pl15-767 pr15-767">
+										<h4 class="mb30">Features</h4>
+									</div>
+										{% for feat in guides.highlights.values %}<div class="col-md-6 col-lg-6 col-xl-4 pl0 pr0 pl15-767">
+										<div class="listing_feature_iconbox mb30">
+										<div class="icon float-left mr10"><span class="flaticon-credit-card"></span></div>
+											<div class="details">
+												<div class="title">{{feat.name}}</div>
+											</div>
+										</div>
+									</div>{% endfor %}
+								
+								</div>
+							</div>
+						</div>
+						
+						<div class="col-lg-12 pl0 pl15-767">
+							<div class="single_page_review_form p30-lg mb30-991">
+								<div class="wrapper">
+									<h4>Add a Review</h4>
+								
+									<form class="review_form" method="post">
+									    {% csrf_token %}
+										<div class="form-group disabled">
+									    	{{form.rating}}
+										</div>
+										
+										<div class="form-group">
+										    <textarea class="form-control" rows="7" placeholder="Your Review" name="content" {% if request.user.is_guid %}disabled{% endif %}></textarea>
+										</div>
+										<button type="submit" class="btn btn-thm" {% if request.user.is_guid %}disabled{% endif %}>Submit Review</button>
+									</form>
+								</div>
+							</div>
+						</div>
+                        <div class="col-lg-12 pl0 pl15-767">
+							<div class="custom_reivews mt30 mb30 row">
+								<div class="col-lg-12">
+									<h4 class="mb25">{{rating}} ({{reviews_len}} reviews)</h4>
+								</div>
+								
+							</div>
+						</div>
+                        <div class="col-lg-12 pl0 pl15-767">
+							<div class="listing_single_reviews">{% for rev in reviews %}
+								<div class="product_single_content mb30">
+									<div class="mbp_first media">
+										<img src="{{rev.customer.profile.image1.url}}" class="mr-3" alt="">
+										<div class="media-body">
+									    	<h4 class="sub_title mt-0">{{rev.customer.name}}</h4>
+									    	<div class="sspd_postdate fz14 mb20">{{rev.created_at}}
+												<div class="sspd_review pull-right">
+													<ul class="mb0 pl15">
+														<li class="list-inline-item">
+                                                            {% if rev.rating == 1 %}
+                                                            🌟
+                                                            {% elif rev.rating == 2 %}
+                                                            🌟🌟
+                                                            {% elif rev.rating == 3 %}
+                                                            🌟🌟🌟
+                                                            {% elif rev.rating == 4 %}
+                                                            🌟🌟🌟🌟
+                                                            {% elif rev.rating == 5 %}
+                                                            🌟🌟🌟🌟🌟
+                                                            {% endif %}
+                                                            </li>
+                                                        {% if request.user == rev.customer %}
+                                                        <li class="text-right"> <a class="text-right" href="{% url 'myapp:del_revguide' rev.id %}">d1</a></li>
+                                                        {% endif %}
+													</ul>
+                                                   
+												</div>
+									    	</div>
+									    	<p class="fz14 mt10"> {{rev.content}} </p>
+										</div>
+									</div>
+								</div>{% endfor %}
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<div class="col-lg-4 col-xl-4">
+					<div class="listing_single_sidebar">
+						<div class="lss_contact_location ">
+							<h4 class="mb25">Location</h4>
+							<div class="sidebar_map mb30">
+								<div class="lss_map h200" id="map-canvas"></div>
+							</div>
+							<ul class="contact_list list-unstyled mb15">
+								<li class="df"><span class="flaticon-pin mr15"></span><a href="#"><span class="tdu text-thm">Get Direction</span></a></li>
+								<li><span class="flaticon-phone mr15"></span><a href="#">{% if listing.phone %}{{listing.phone}}{% else %} /{% endif %}</a></li>
+								<li><span class="flaticon-email mr15"></span><a href="#">{% if listing.email %}{{listing.email}}{% else %} /{% endif %}</a></li>
+								
+							</ul>
+							<ul class="sidebar_social_icon mb0">
+								<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+								<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+								<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+								<li class="list-inline-item"><a href="#"><i class="fa fa-linkedin"></i></a></li>
+							</ul>
+						</div>
+						
+						
+						
+						<div class="sidebar_author_widget">
+							<h4 class="title mb25">Author: {{listing.author.name}}</h4>
+							<div class="media">
+								<img class="mr-3" src="/media/{{request.user.profile.image}}" alt="author.png">
+								<div class="media-body">
+							    	<h5 class="mt15 mb0"></h5>
+							    	
+							  	</div>
+							</div>
+						</div>{% if request.user.is_customer %}
+						<div class="sidebar_contact_business_widget">
+                            <form method="post">
+                                {% csrf_token %}
+                                <h4 class="title mb25">Inbox me</h4>
+                                <ul class="business_contact mb0">
+                                    <li class="search_area">
+                                        <div class="form-group">
+                                            <textarea id="form_message" name="message" class="form-control required" rows="5" required="required" placeholder="Message"></textarea>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="search_option_button">
+                                            <button type="submit" class="btn btn-block btn-thm h55">Send Message</button>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </form>
+						</div>{% endif %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+{% endblock %}

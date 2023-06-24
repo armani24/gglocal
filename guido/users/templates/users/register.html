@@ -1,0 +1,65 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+{% block content %}
+	<!-- Our LogIn Register -->
+	<section class="our-log-reg">
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12 col-lg-6 offset-lg-3">
+					<div class="sign_up_form inner_page">
+						<ul class="nav nav-pills mb-4" id="pills-tab2" role="tablist" s>
+							<li class="nav-item" role="presentation">
+								<a class="nav-link active" id="pills-home-tab2" data-toggle="pill" role="tab" aria-controls="pills-home2" aria-selected="true" onclick="updater('customer')">Customer</a>
+							</li>
+							<li class="nav-item" role="presentation">
+						    	<a class="nav-link" id="pills-profile-tab2" data-toggle="pill" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="updater('owner')">Business Owner</a>
+							</li>
+							<li class="nav-item" role="presentation">
+						    	<a class="nav-link" id="pills-profile-tab3" data-toggle="pill" role="tab" aria-controls="pills-profile" aria-selected="false" onclick="updater('guide')">Local Guid</a>
+							</li>
+						</ul>
+						<div class="tab-content" id="pills-tabContent2">
+							<div class="tab-pane fade show active" id="pills-home2" role="tabpanel" aria-labelledby="pills-home-tab2">
+								<form method="post">
+								    {% csrf_token %}
+								    {{ form.errors }}
+									<div class="form-group input-group">
+									    <input type="text" name="buzzer" id="buzzer" value="{{form.buzzer.value}}" hidden/>
+									    <input type="email" class="form-control" name="email" placeholder="Email">
+									    	
+									</div>
+									<div class="form-group input-group">
+									    <input type="text" class="form-control" name="name" placeholder="Your name">
+									</div>
+									<div class="form-group input-group">
+									    <input type="text" class="form-control" name="phone" placeholder="Phone">
+									</div>
+									<div class="form-group input-group mb20">
+									    <input type="password" class="form-control" name="password" placeholder="Password">
+									</div>
+									<button type="submit" class="btn btn-log btn-block btn-thm">Sign Up</button>
+									<hr>
+									<div class="row">
+										<div class="col-lg-6">
+											<button type="submit" class="btn btn-block btn-fb"><i class="fa fa-facebook float-left mt5"></i> Log In via Facebook</button>
+										</div>
+										<div class="col-lg-6">
+											<button type="submit" class="btn btn-block btn-googl"><i class="fa fa-google float-left mt5"></i> Log In via Google+</button>
+										</div>
+									</div>
+								</form>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+	<script type="text/javascript" charset="utf-8">
+	    function updater(value){
+	        
+	        
+	        document.getElementById("buzzer").value = value; 
+	    }
+	</script>
+{% endblock %}

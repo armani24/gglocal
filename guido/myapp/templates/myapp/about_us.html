@@ -1,0 +1,93 @@
+{% extends 'myapp/base.html' %}
+{% load static %}
+
+{% block content %}
+
+	<!-- Inner Page Breadcrumb -->
+	<section class="inner_page_breadcrumb">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-xl-6">
+					<div class="breadcrumb_content">
+						<h2 class="breadcrumb_title">About Us</h2>
+						<ol class="breadcrumb">
+						    <li class="breadcrumb-item"><a href="{% url 'myapp:home' %}">Home</a></li>
+						    <li class="breadcrumb-item active" aria-current="page">About Us</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- About Text Content -->
+	<section class="about-section">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-8 offset-lg-2">
+					<div class="main-title text-center">
+						<h2>{{about_us.title}}</h2>
+						<p>{{about_us.intoduction}}</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="about_thumb mb30-smd">
+						<img class="img-fluid w100" src="images/about/1.jpg" alt="1.jpg">
+						<a class="popup-iframe popup-youtube" href=""><img src="images/icons/play1.svg" alt="play1.svg"></a>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="about_content">
+						<p class="large">{{about_us.intoduction}}.</p>
+						<p>{{about_us.description}}</p>
+						
+					</div>
+				</div>
+			</div>
+			<div class="row mt50">
+				<div class="col-md-6 col-lg-3">
+					<div class="funfact_one style2 text-center">
+						<div class="details">
+							<div class="timer">749</div>
+							<h4 class="ff_title">Happy customers</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<div class="funfact_one style2 text-center">
+						<div class="details">
+							<div class="timer">853</div>
+							<h4 class="ff_title">Listing pages</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<div class="funfact_one style2 text-center">
+						<div class="details">
+							<ul>
+								<li class="list-inline-item"><div class="timer">28</div></li>
+								<li class="list-inline-item"><span>K+</span></li>
+							</ul>
+							<h4 class="ff_title">Best followers</h4>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6 col-lg-3">
+					<div class="funfact_one style2 text-center">
+						<div class="details">
+							<ul>
+								<li class="list-inline-item"><div class="timer">53</div></li>
+								<li class="list-inline-item"><span>K+</span></li>
+							</ul>
+							<h4 class="ff_title">Team members</h4>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+{% endblock %}
