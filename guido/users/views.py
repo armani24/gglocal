@@ -29,7 +29,7 @@ def login_view(request):
                     form.add_error(None, 'Invalid email or password.')
         else:
             form = LoginForm()
-        return render(request, 'users/login.html', {'form': form, 'bycity':bycity,'all_cats':all_cats})
+        return render(request, 'users/login.html', {'form': form, 'bycity':bycity,'contact_info':banner()[2],'all_cats':all_cats})
     return redirect('myapp:home')
 
 
@@ -64,7 +64,7 @@ def register_owner(request):
             return redirect('myapp:home')  # Redirect to the desired page after registration
     else:
         form = OwnerRegistrationForm()
-    return render(request, 'users/register.html', {'form': form,'bycity':bycity,'all_cats':all_cats})
+    return render(request, 'users/register.html', {'form': form,'bycity':bycity,'contact_info':banner()[2],'all_cats':all_cats})
 
 from myapp.models import Listing, Messages
 

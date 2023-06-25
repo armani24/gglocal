@@ -34,12 +34,11 @@
 							<button onclick="myFunction()" class="dropbtn"><i class="fa fa-bars pr10"></i> Dashboard Navigation</button>
 							<ul id="myDropdown" class="dropdown-content">
 								<li class="active"><a href="{% url 'users:owner_dash' %}"><span class="flaticon-web-page"></span> Dashboard</a></li>
-								<li><a href="#"><span class="flaticon-avatar"></span> My Profile</a></li>
-								<li><a href="mycity"><span class="flaticon-list"></span> My City</a></li>
-								<li><a href="#"><span class="flaticon-love"></span> Bookmarks</a></li>
-								<li><a href="{% url 'users:guide_msgs' %}"><span class="flaticon-chat"></span> Message</a></li>
+								<li><a href="{% url 'users:owner_profile' %}"><span class="flaticon-avatar"></span> My Profile</a></li>
+								<li><a href="{% url 'myapp:my_listings' %}"><span class="flaticon-list"></span> My Listings</a></li>
+								<li><a href="{% url 'users:owner_msgs' %}"><span class="flaticon-chat"></span> Message</a></li>
 								<li><a href="#"><span class="flaticon-note"></span> Reviews</a></li>
-								<li><a href="#"><span class="flaticon-web-page"></span> Add New Listing</a></li>
+								<li><a href="{% url 'myapp:create_listing' %}"><span class="flaticon-web-page"></span> Add New Listing</a></li>
 								<li><a href="{% url 'users:logout' %}"><span class="flaticon-logout"></span> Logout</a></li>
 							</ul>
 						</div>

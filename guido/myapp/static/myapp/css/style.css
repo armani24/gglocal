@@ -11,8 +11,8 @@ Tag:    airbnb, broker, city tour, directory, google maps, listings, local busin
 ********/
 /* CSS Document */
 @import url(../css/jquery-ui.min.css);
-@import url(../css/font-awesome.min.css);
-@import url(../css/font-awesome-animation.min.css);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css);
+/*@import url(../css/font-awesome-animation.min.css);*/
 @import url(../css/menu.css);
 @import url(../css/ace-responsive-menu.css);
 @import url(../css/megadropdown.css);
